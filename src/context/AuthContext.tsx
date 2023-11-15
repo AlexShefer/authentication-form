@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import { useEffect } from "react";
 
 type AuthUser = {
     userName: string;
@@ -43,6 +44,15 @@ const authReducer = (_: AuthState, action: LoginAction | LogoutAction) => {
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     const [state, dispatch] = useReducer(authReducer, initialState);
+
+    useEffect(() => {
+        const userString = localStorage.getItem("user");
+
+        if (userString !== null) {
+            const user = JSON.parse(userString);
+            dispatch({ type: "LOGIN", payload: user });
+        }
+    }, []);
 
     return (
         <AuthContext.Provider value={{ ...state, dispatch }}>
