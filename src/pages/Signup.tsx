@@ -1,19 +1,7 @@
 import { useState } from "react";
 import { useSignup } from "../hooks/useSignup";
-
-interface FormData {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
-
-interface ErrorType {
-    name: boolean;
-    email: boolean;
-    password: boolean;
-    confirmPassword: boolean;
-}
+import { useFormValidation } from "../hooks/useFormVlidation";
+import { FormData } from "../types/types";
 
 import { Link } from "react-router-dom";
 export const SignUp = () => {
@@ -23,16 +11,18 @@ export const SignUp = () => {
         password: "",
         confirmPassword: "",
     });
+    const {
+        isValidForm,
+        isValidName,
+        isValidEmail,
+        isValidPassword,
+        isPasswordConfirmed,
+        errorType,
+        setErrorType,
+    } = useFormValidation();
     const [isHidden, setIsHidden] = useState(true);
     const { signup, error: signupError, isLoading } = useSignup();
-    console.log(signupError);
     const [error, setError] = useState<null | string>(null);
-    const [errorType, setErrorType] = useState<ErrorType>({
-        name: false,
-        email: false,
-        password: false,
-        confirmPassword: false,
-    });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData((prev) => ({
@@ -40,56 +30,11 @@ export const SignUp = () => {
             [event.target.name]: event.target.value,
         }));
     };
-    const isValidForm = (): boolean => {
-        const requiredFields: (keyof FormData)[] = [
-            "name",
-            "email",
-            "password",
-            "confirmPassword",
-        ];
-        let isValid = true;
 
-        for (const field of requiredFields) {
-            if (!formData[field]) {
-                setErrorType((prev) => ({
-                    ...prev,
-                    [field]: true,
-                }));
-                isValid = false;
-            } else {
-                setErrorType((prev) => ({
-                    ...prev,
-                    [field]: false,
-                }));
-            }
-        }
-        return isValid;
-    };
-
-    const isValidName = (name: string): boolean => {
-        const regex = /^\S+$/;
-        return regex.test(name);
-    };
-    const isValidEmail = (email: string): boolean => {
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
-    };
-    const isValidPassword = (password: string): boolean => {
-        const regex =
-            /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{8,}$/;
-
-        return regex.test(password);
-    };
-    const isPasswordConfirmed = (
-        password: string,
-        confirmPassword: string
-    ): boolean => {
-        return password === confirmPassword;
-    };
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (!isValidForm()) {
+        if (!isValidForm(formData)) {
             setError("Все поля должны быть заполнены");
         } else if (!isValidName(formData.name)) {
             setErrorType((prev) => ({
