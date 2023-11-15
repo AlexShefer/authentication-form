@@ -44,6 +44,9 @@ nav {
 nav a {
     margin-left: 10px;
 }
+nav a:hover {
+    color: var(--hover);
+}
 
 nav button {
     background: #fff;
@@ -61,9 +64,10 @@ nav button {
     margin: 0 auto;
 }
 
-/* form */
+/* form  */
 form.signup,
-form.login {
+form.login,
+div.home {
     max-width: 400px;
     margin: 40px auto;
     padding: 20px;
@@ -157,7 +161,8 @@ form .link {
     margin: 1.5rem 0 0.5rem;
 }
 
-form .link a {
+form .link a,
+div.home a {
     text-transform: capitalize;
     color: var(--primary);
     text-decoration: none;
@@ -165,7 +170,8 @@ form .link a {
     transition: all 0.5s ease;
 }
 
-form .link a:hover {
+form .link a:hover,
+div.home a:hover {
     color: var(--hover);
 }
 div.input-group.error {
