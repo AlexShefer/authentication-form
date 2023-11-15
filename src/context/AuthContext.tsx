@@ -30,7 +30,7 @@ const initialState = { user: null };
 
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-const authReducer = (state: AuthState, action: LoginAction | LogoutAction) => {
+const authReducer = (_: AuthState, action: LoginAction | LogoutAction) => {
     switch (action.type) {
         case "LOGIN":
             return { user: action.payload };
