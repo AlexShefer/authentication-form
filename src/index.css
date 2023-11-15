@@ -1,0 +1,123 @@
+/* google font */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;800&family=VT323&display=swap");
+
+/* layout */
+:root {
+    --primary: #1aac83;
+    --error: #e7195a;
+    --labelColor: #333333;
+    --whiteColor: #ffffff;
+    --hover: #da4453;
+}
+body {
+    background: #f1f1f1;
+    margin: 0;
+    font-family: "Roboto";
+}
+.pages {
+    max-width: 1400px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* form */
+form.signup,
+form.login {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 4px;
+    text-align: center;
+}
+
+label,
+input {
+    display: block;
+}
+input {
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+    font-size: 1.2rem;
+    border: 1px solid var(--labelColor);
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: transparent;
+}
+form .input-group {
+    position: relative;
+}
+form .input-group i,
+form .input-group label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    color: var(--labelColor);
+    padding: 0 0.5rem;
+    pointer-events: none;
+    transition: all 0.5s ease;
+}
+form .input-group i {
+    left: 0.5rem;
+}
+
+form .input-group label {
+    left: 2.5rem;
+}
+
+form .input-group input:focus ~ label,
+form .input-group input:valid ~ label,
+form .input-group input:focus ~ i,
+form .input-group input:valid ~ i {
+    top: 0;
+    font-size: 1rem;
+    background-color: var(--whiteColor);
+}
+
+form button {
+    background: var(--primary);
+    width: 100%;
+    border: 0;
+    color: #fff;
+    padding: 10px;
+    font-family: "Roboto";
+    border-radius: 4px;
+    cursor: pointer;
+}
+form button:hover {
+    background: var(--hover);
+}
+div.error {
+    padding: 10px;
+    background: #ffefef;
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: 4px;
+    margin: 20px 0;
+}
+
+form .link {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--labelColor);
+    margin: 2.5rem 0;
+}
+
+form .link a {
+    text-transform: capitalize;
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.5s ease;
+}
+
+form .link a:hover {
+    color: var(--hover);
+}
+input.error {
+    border: 1px solid var(--error);
+}
