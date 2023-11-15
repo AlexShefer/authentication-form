@@ -34,9 +34,9 @@ export const SignUp = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (!isValidForm(formData)) {
+        if (!isValidForm(formData, "signup")) {
             setError("Все поля должны быть заполнены");
-        } else if (!isValidName(formData.name)) {
+        } else if (formData.name && !isValidName(formData.name)) {
             setErrorType((prev) => ({
                 ...prev,
                 name: true,
@@ -57,6 +57,7 @@ export const SignUp = () => {
                 "Пароль должен состоять не менее чем из 8 символов, содержать заглавные буквы, число и символ"
             );
         } else if (
+            formData.confirmPassword &&
             !isPasswordConfirmed(formData.password, formData.confirmPassword)
         ) {
             setErrorType((prev) => ({
@@ -66,7 +67,12 @@ export const SignUp = () => {
             }));
             setError("Пароль и подтверждение пароля не совпадают");
         } else {
-            await signup(formData.name, formData.email, formData.password);
+            formData.name &&
+                (await signup(
+                    formData.name,
+                    formData.email,
+                    formData.password
+                ));
             setError(null);
         }
     };

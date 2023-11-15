@@ -8,13 +8,11 @@ export const useFormValidation = () => {
         password: false,
         confirmPassword: false,
     });
-    const isValidForm = (formData: FormData): boolean => {
-        const requiredFields: (keyof FormData)[] = [
-            "name",
-            "email",
-            "password",
-            "confirmPassword",
-        ];
+    const isValidForm = (formData: FormData, formType: string): boolean => {
+        const requiredFields: (keyof FormData)[] =
+            formType === "signup"
+                ? ["name", "email", "password", "confirmPassword"]
+                : ["email", "password"];
         let isValid = true;
 
         for (const field of requiredFields) {
