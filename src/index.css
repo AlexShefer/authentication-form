@@ -66,7 +66,7 @@ form .input-group i {
 }
 
 form .input-group label {
-    left: 2.5rem;
+    left: 2rem;
 }
 
 form .input-group input:focus ~ label,
@@ -86,6 +86,7 @@ form button {
     padding: 10px;
     font-family: "Roboto";
     border-radius: 4px;
+    font-size: 1.2rem;
     cursor: pointer;
     transition: all 0.5s ease;
 }
@@ -121,4 +122,12 @@ form .link a:hover {
 }
 input.error {
     border: 1px solid var(--error);
+}
+div.error {
+    padding: 10px;
+    background: #ffefef;
+    border: 1px solid var(--error);
+    color: var(--error);
+    border-radius: 4px;
+    margin: 20px 0;
 }
