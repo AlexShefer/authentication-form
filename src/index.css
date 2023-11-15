@@ -1,6 +1,11 @@
 /* google font */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;800&family=VT323&display=swap");
 
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
 /* layout */
 :root {
     --primary: #1aac83;
@@ -73,17 +78,22 @@ input {
 }
 input {
     padding: 10px;
-    margin-top: 10px;
-    margin-bottom: 20px;
     width: 100%;
     font-size: 1.2rem;
-    border: 1px solid var(--labelColor);
-    border-radius: 4px;
+    border: none;
+    outline: none;
     box-sizing: border-box;
     background: transparent;
 }
 form .input-group {
     position: relative;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid var(--labelColor);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 1em;
 }
 form .input-group i,
 form .input-group label {
@@ -103,6 +113,15 @@ form .input-group i {
 
 form .input-group label {
     left: 2rem;
+}
+form .input-group .show-password {
+    color: var(--labelColor);
+    font-size: 1.2rem;
+    margin-right: 0.75rem;
+    cursor: pointer;
+}
+form .input-group .show-password:hover {
+    color: var(--hover);
 }
 
 form .input-group input:focus ~ label,
@@ -129,14 +148,6 @@ form button {
 form button:hover {
     background: var(--hover);
 }
-div.error {
-    padding: 10px;
-    background: #ffefef;
-    border: 1px solid var(--error);
-    color: var(--error);
-    border-radius: 4px;
-    margin: 20px 0;
-}
 
 form .link {
     text-align: center;
@@ -157,10 +168,10 @@ form .link a {
 form .link a:hover {
     color: var(--hover);
 }
-input.error {
+div.input-group.error {
     border: 1px solid var(--error);
 }
-div.error {
+div.error-field {
     padding: 10px;
     background: #ffefef;
     border: 1px solid var(--error);

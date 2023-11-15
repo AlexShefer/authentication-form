@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSignup } from "../hooks/useSignup";
 
 interface FormData {
     name: string;
@@ -22,6 +23,9 @@ export const SignUp = () => {
         password: "",
         confirmPassword: "",
     });
+    const [isHidden, setIsHidden] = useState(true);
+    const { signup, error: signupError, isLoading } = useSignup();
+    console.log(signupError);
     const [error, setError] = useState<null | string>(null);
     const [errorType, setErrorType] = useState<ErrorType>({
         name: false,
@@ -82,7 +86,7 @@ export const SignUp = () => {
     ): boolean => {
         return password === confirmPassword;
     };
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (!isValidForm()) {
@@ -117,15 +121,30 @@ export const SignUp = () => {
             }));
             setError("Пароль и подтверждение пароля не совпадают");
         } else {
-            setError("форма отправлена");
+            await signup(formData.name, formData.email, formData.password);
+            setError(null);
         }
     };
-    console.log(error);
-
+    const ShowPassword = () => {
+        return (
+            <div
+                className="show-password"
+                onClick={() => setIsHidden((prev) => !prev)}
+            >
+                {isHidden ? (
+                    <span className="fas">&#xf06e;</span>
+                ) : (
+                    <span className="fas">&#xf070;</span>
+                )}
+            </div>
+        );
+    };
     return (
         <form onSubmit={handleSubmit} className="signup" noValidate>
             <h2>Регистрация</h2>
-            <div className="input-group">
+            <div
+                className={errorType.name ? "input-group error" : "input-group"}
+            >
                 <input
                     type="text"
                     id="name"
@@ -133,12 +152,15 @@ export const SignUp = () => {
                     onChange={handleChange}
                     value={formData.name}
                     required
-                    className={errorType.name ? "error" : ""}
                 />
                 <label htmlFor="name">Имя:</label>
                 <i className="fas fa-user"></i>
             </div>
-            <div className="input-group">
+            <div
+                className={
+                    errorType.email ? "input-group error" : "input-group"
+                }
+            >
                 <input
                     type="text"
                     id="email"
@@ -146,42 +168,58 @@ export const SignUp = () => {
                     onChange={handleChange}
                     value={formData.email}
                     required
-                    className={errorType.email ? "error" : ""}
                 />
                 <label htmlFor="email">Email:</label>
                 <i className="fas fa-at"></i>
             </div>
-            <div className="input-group">
+            <div
+                className={
+                    errorType.password ? "input-group error" : "input-group"
+                }
+            >
                 <input
-                    type="password"
+                    type={isHidden ? "password" : "text"}
                     id="password"
                     name="password"
                     onChange={handleChange}
                     value={formData.password}
                     required
-                    className={errorType.password ? "error" : ""}
                 />
                 <label htmlFor="password">Пароль:</label>
                 <i className="fas fa-lock"></i>
+                <ShowPassword />
             </div>
-            <div className="input-group">
+            <div
+                className={
+                    errorType.confirmPassword
+                        ? "input-group error"
+                        : "input-group"
+                }
+            >
                 <input
-                    type="password"
+                    type={isHidden ? "password" : "text"}
                     id="password-confirmation"
                     name="confirmPassword"
                     onChange={handleChange}
                     value={formData.confirmPassword}
                     required
-                    className={errorType.confirmPassword ? "error" : ""}
                 />
                 <label htmlFor="password-confirmation">
                     Подтверждение пароля:
                 </label>
                 <i className="fas fa-lock"></i>
             </div>
-            {error && <div className="error">{error}</div>}
+            {error ? (
+                <div className="error-field">{error}</div>
+            ) : signupError ? (
+                <div className="error-field">{signupError}</div>
+            ) : (
+                ""
+            )}
 
-            <button>Зарегистрироваться</button>
+            <button type="submit" disabled={isLoading}>
+                Зарегистрироваться
+            </button>
             <p className="link">
                 У вас уже есть аккаунт? <Link to="/login">Вход</Link>
             </p>
