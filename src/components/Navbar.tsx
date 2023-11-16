@@ -14,12 +14,12 @@ export const Navbar = () => {
                 <nav>
                     {user ? (
                         <div>
-                            <button onClick={() => logout()}>Выход</button>
+                            <button onClick={() => logout()}>Logout</button>
                         </div>
                     ) : (
                         <div>
-                            <Link to="/login">Войти</Link>
-                            <Link to="/signup">Зарегистрироваться</Link>
+                            <Link to="/login">Login</Link>
+                            <Link to="/signup">Signup</Link>
                         </div>
                     )}
                 </nav>
