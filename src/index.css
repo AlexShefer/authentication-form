@@ -152,6 +152,9 @@ form button {
 form button:hover {
     background: var(--hover);
 }
+form button:disabled {
+    background: var(--labelColor);
+}
 
 form .link {
     text-align: center;
