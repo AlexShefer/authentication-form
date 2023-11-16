@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ErrorType, FormData } from "../types/types";
+import { ErrorType, FormData } from "../types/formTypes";
 
 export const useFormValidation = () => {
     const [errorType, setErrorType] = useState<ErrorType>({

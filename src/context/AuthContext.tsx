@@ -1,32 +1,13 @@
 import { createContext, useReducer } from "react";
 import { useEffect } from "react";
+import {
+    AuthContextType,
+    AuthState,
+    LoginAction,
+    LogoutAction,
+    AuthContextProviderProps,
+} from "../types/authTypes";
 
-type AuthUser = {
-    userName: string;
-    email: string;
-    token: string;
-};
-
-type AuthState = {
-    user: AuthUser | null;
-};
-
-type LoginAction = {
-    type: "LOGIN";
-    payload: AuthUser;
-};
-type LogoutAction = {
-    type: "LOGOUT";
-};
-
-type AuthContextType = {
-    user: AuthUser | null;
-    dispatch: React.Dispatch<LoginAction | LogoutAction>;
-};
-
-type AuthContextProviderProps = {
-    children: React.ReactNode;
-};
 const initialState = { user: null };
 
 export const AuthContext = createContext<AuthContextType | null>(null);

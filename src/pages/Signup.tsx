@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSignup } from "../hooks/useSignup";
 import { useFormValidation } from "../hooks/useFormVlidation";
-import { FormData } from "../types/types";
+import { FormData } from "../types/formTypes";
 
 import { Link } from "react-router-dom";
 export const SignUp = () => {
