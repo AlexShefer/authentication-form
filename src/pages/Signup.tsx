@@ -31,7 +31,7 @@ export const SignUp = () => {
         }));
     };
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         if (!isValidForm(formData, "signup")) {
@@ -91,7 +91,7 @@ export const SignUp = () => {
         );
     };
     return (
-        <form onSubmit={handleSubmit} className="signup" noValidate>
+        <form className="signup" noValidate>
             <h2>Регистрация</h2>
             <div
                 className={errorType.name ? "input-group error" : "input-group"}
@@ -168,7 +168,7 @@ export const SignUp = () => {
                 ""
             )}
 
-            <button type="submit" disabled={isLoading}>
+            <button onClick={handleSubmit} disabled={isLoading}>
                 Зарегистрироваться
             </button>
             <p className="link">

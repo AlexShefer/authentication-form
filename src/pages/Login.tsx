@@ -23,7 +23,7 @@ export const Login = () => {
         }));
     };
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         if (!isValidForm(formData, "login")) {
@@ -54,7 +54,7 @@ export const Login = () => {
         );
     };
     return (
-        <form onSubmit={handleSubmit} className="signup" noValidate>
+        <form className="signup" noValidate>
             <h2>Вход</h2>
 
             <div
@@ -99,7 +99,7 @@ export const Login = () => {
                 ""
             )}
 
-            <button type="submit" disabled={isLoading}>
+            <button onClick={handleSubmit} disabled={isLoading}>
                 Войти
             </button>
             <p className="link">
